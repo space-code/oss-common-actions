@@ -1,0 +1,34 @@
+name: Upload a Test Coverage Report
+
+inputs:
+  filename:
+    description: "The filename for an xcresult file."
+    required: true
+    type: string
+  scheme_name:
+    description: "The name for the scheme."
+    required: true
+    type: string
+  token:
+    description: "The token for uploading to CodeCov"
+    required: true
+  output_path:
+    description: "The output code coverage report path"
+    required: true
+    default: test_output
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3.1.0
+      with:
+        token: ${{ inputs.token }}
+        xcode: true
+        flags: ${{ inputs.scheme_name }}
+        xcode_archive_path: test_output/${{ inputs.filename }}.xcresult
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.filename }}
+        path: ${{ inputs.output_path }}
