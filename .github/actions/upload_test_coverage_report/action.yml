@@ -22,7 +22,7 @@ runs:
 
   steps:
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3.1.0
+      uses: codecov/codecov-action@v4.5.0
       with:
         token: ${{ inputs.token }}
         xcode: true
