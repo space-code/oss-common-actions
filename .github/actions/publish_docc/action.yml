@@ -1,19 +1,16 @@
+---
 name: Build and Publish Documentation
 
 inputs:
-  # The target's name which documentation is built for. 
   target:
     required: true
     type: string
-  # The output path for the documentation.
   output_path:
     required: true
     type: string
-  # The hosting base path for the documentation. 
   hosting_base_path:
     required: true
     type: string
-  # The branch name to which documentation will be uploaded.
   branch_name:
     required: true
     type: string
@@ -46,9 +43,12 @@ runs:
       shell: bash
       run: |
         git fetch
-        git worktree add --checkout ${{ inputs.branch_name }} origin/${{ inputs.branch_name }}
+        git worktree add --checkout ${{ inputs.branch_name }} \
+          origin/${{ inputs.branch_name }}
 
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.email \
+          "github-actions[bot]@users.noreply.github.com"
+
         git config --local user.name "github-actions[bot]"
         git switch ${{ inputs.branch_name }}
 
@@ -59,7 +59,9 @@ runs:
         git add ./${{ inputs.output_path }}
 
         if [ -n "$(git status --porcelain)" ]; then
-          echo "Documentation changes found. Commiting the changes to the '${{ inputs.branch_name }}' branch and pushing to origin."
+          echo "Documentation changes found. \
+            Commiting the changes to the '${{ inputs.branch_name }}' \
+            branch and pushing to origin."
           git commit -a -m "Generated ${{ inputs.target }} Swift DocC"
           git push origin ${{ inputs.branch_name }}
         else
