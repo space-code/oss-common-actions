@@ -31,10 +31,10 @@ runs:
 
     - name: Convert the test report
       run: |
-        xcresultparser \
-          -o cobertura \
-          "test_output/${{ inputs.filename }}.xcresult" \
-          > cobertura.xml
+        INPUT="test_output/${{ inputs.filename }}.xcresult"
+
+        xcresultparser -o cobertura "$INPUT" > cobertura.xml
+        xcresultparser -o junit "$INPUT" > junit.xml
       shell: bash
 
     - name: Upload coverage reports to Codecov
@@ -45,6 +45,12 @@ runs:
         fail_ci_if_error: true
         verbose: true
         files: ./cobertura.xml
+
+    - name: Upload test results to Codecov
+      if: ${{ !cancelled() }}
+      uses: codecov/test-results-action@v1
+      with:
+        token: ${{ inputs.token }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
