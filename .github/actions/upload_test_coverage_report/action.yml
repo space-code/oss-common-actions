@@ -1,3 +1,4 @@
+---
 name: Upload Test Coverage Report
 
 inputs:
@@ -30,9 +31,12 @@ runs:
 
     - name: Convert the test report
       run: |
-        xcresultparser -o cobertura "test_output/${{ inputs.filename }}.xcresult" > cobertura.xml
+        xcresultparser \
+          -o cobertura \
+          "test_output/${{ inputs.filename }}.xcresult" \
+          > cobertura.xml
       shell: bash
-  
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5.1.2
       with:
