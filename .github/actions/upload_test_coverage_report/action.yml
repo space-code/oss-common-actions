@@ -33,8 +33,8 @@ runs:
       run: |
         INPUT="test_output/${{ inputs.filename }}.xcresult"
 
-        xcresultparser -o cobertura "$INPUT" > cobertura.xml
-        xcresultparser -o junit "$INPUT" > junit.xml
+        xcresultparser -o cobertura "${INPUT}" > cobertura.xml
+        xcresultparser -o junit "${INPUT}" > junit.xml
       shell: bash
 
     - name: Upload Coverage to Codecov
