@@ -25,8 +25,10 @@ runs:
   steps:
     - name: Install dependencies
       run: |
-        brew tap a7ex/homebrew-formulae
-        brew install xcresultparser
+        curl -L https://github.com/a7ex/xcresultparser/releases/download/1.8.3/xcresultparser.zip -o xcresultparser.zip
+        unzip xcresultparser.zip
+        chmod +x product/xcresultparser
+        sudo mv product/xcresultparser /usr/local/bin/
       shell: bash
 
     - name: Convert the test report
