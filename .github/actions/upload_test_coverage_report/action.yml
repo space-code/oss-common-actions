@@ -45,12 +45,7 @@ runs:
         fail_ci_if_error: true
         verbose: true
         files: ./cobertura.xml
-
-    - name: Upload test results to Codecov
-      if: ${{ !cancelled() }}
-      uses: codecov/test-results-action@v1
-      with:
-        token: ${{ inputs.token }}
+        report-type: test_results
 
     - name: Upload artifact
       uses: actions/upload-artifact@v7
