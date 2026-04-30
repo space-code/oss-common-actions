@@ -38,7 +38,7 @@ runs:
       shell: bash
 
     - name: Upload Coverage to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v6
       with:
         token: ${{ inputs.token }}
         files: ./cobertura.xml
@@ -48,12 +48,12 @@ runs:
 
     - name: Upload Test Results to Codecov
       if: ${{ !cancelled() }}
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v6
       with:
         token: ${{ inputs.token }}
         files: ./junit.xml
         flags: ${{ inputs.scheme_name }}
-        report-type: test_results
+        report_type: test_results
         fail_ci_if_error: true
         verbose: true
 
