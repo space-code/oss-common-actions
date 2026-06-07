@@ -40,7 +40,7 @@ runs:
       shell: bash
 
     - name: Upload Coverage to Codecov
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
       with:
         token: ${{ inputs.token }}
         files: ./cobertura.xml
@@ -50,7 +50,7 @@ runs:
 
     - name: Upload Test Results to Codecov
       if: ${{ !cancelled() }}
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
       with:
         token: ${{ inputs.token }}
         files: ./junit.xml
